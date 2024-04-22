@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 export default function AddToCart({ item }: { item: OrderItem }) {
   //redner a button
   const router = useRouter();
-  const { items, increase } = useCartService();
+  const { items, increase, decrease } = useCartService();
   const [existItem, setExistItem] = useState<OrderItem | undefined>();
   useEffect(() => {
     setExistItem(items.find((x) => x.slug === item.slug));
@@ -16,11 +16,10 @@ export default function AddToCart({ item }: { item: OrderItem }) {
 
   const addToCartHandler = () => {
     increase(item);
-    console.log(items);
   };
   return existItem ? (
     <div>
-      <button className="btn" type="button">
+      <button className="btn" type="button" onClick={() => decrease(existItem)}>
         -
       </button>
       <span>{existItem.qty}</span>

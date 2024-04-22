@@ -47,6 +47,30 @@ export default function useCartService() {
         totalPrice,
       });
     },
+    decrease: (item: OrderItem) => {
+      const exist = items.find((x) => x.slug === item.slug);
+      if (!exist) return;
+
+      // Verificar si la cantidad es 1
+      if (exist.qty === 1) {
+        // Eliminar el artículo del carrito
+        cartStore.setState({ items: items.filter((x) => x.slug !== item.slug) });
+        return; // Salir de la función después de eliminar el artículo
+      }
+
+      // Si la cantidad no es 1, decrementarla
+      const updatedCartItems = items.map((x) => (x.slug === item.slug ? { ...exist, qty: exist.qty - 1 } : x));
+
+      // Actualizar el estado del carrito con los cambios
+      const { itemsPrice, shippingPrice, taxPrice, totalPrice } = calcPrice(updatedCartItems);
+      cartStore.setState({
+        items: updatedCartItems,
+        itemsPrice,
+        shippingPrice,
+        taxPrice,
+        totalPrice,
+      });
+    },
   };
 }
 
