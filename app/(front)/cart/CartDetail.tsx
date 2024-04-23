@@ -62,6 +62,25 @@ const CartDetail = () => {
               </tbody>
             </table>
           </div>
+          <div>
+            <div className="card bg-base-300">
+              <div className="card-body">
+                <ul>
+                  <li>
+                    <div className="pb-3 text-3xl">
+                      Subtotal:({items.reduce((a, b) => a + b.qty, 0)}):$
+                      {itemsPrice}
+                    </div>
+                  </li>
+                  <li>
+                    <button className="btn btn-primary w-full" onClick={() => router.push("/checkout")}>
+                      Proceed to Checkout
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </>
