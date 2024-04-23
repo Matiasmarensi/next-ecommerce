@@ -1,10 +1,12 @@
 import AddToCart from "@/components/products/AddToCart";
 import data from "@/lib/data";
+import productService from "@/lib/services/productService";
+import { convertDocToObject } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ProductDetail({ params }: { params: { slug: string } }) {
-  const product = data.products.find((p) => p.slug === params.slug);
+export default async function ProductDetail({ params }: { params: { slug: string } }) {
+  const product = await productService.getFeaturesBySlug(params.slug);
   if (!product) return <div>Product not found</div>;
 
   return (
@@ -51,7 +53,7 @@ export default function ProductDetail({ params }: { params: { slug: string } }) 
             <div className="card-actions justify-center">
               {product.countInStock > 0 && (
                 <div className="card-actions justify-center">
-                  <AddToCart item={{ ...product, qty: 0, color: "", size: "" }} />
+                  <AddToCart item={{ ...convertDocToObject(product), qty: 0, color: "", size: "" }} />
                 </div>
               )}
             </div>

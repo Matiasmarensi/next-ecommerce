@@ -12,3 +12,8 @@ export const formatNumber = (x: number) => {
 export const formatId = (x: string) => {
   return `..${x.substring(20, 24)}`;
 };
+
+export function convertDocToObject(doc: any) {
+  doc._id = doc._id.toString();
+  return doc;
+}
