@@ -6,6 +6,7 @@ import ProductModel from "@/lib/models/ProductModel";
 
 export const GET = async (req: Request, res: Response) => {
   const { users, products } = data;
+
   dbConnection();
   await UserModel.deleteMany();
   await UserModel.insertMany(users);
