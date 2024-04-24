@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import dbConnect from "./dbConnect";
 import UserModel from "./models/UserModel";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export const config = {
   providers: [
@@ -36,8 +36,11 @@ export const config = {
   },
   callbacks: {
     authorized({ request, auth }: any) {
-      const protectedPaths = [/\/shipping/, /\/payment/, /\/place-order/, /\/profile/, /\/order\/(.*)/, /\/admin/];
+      const protectedPaths = [/\/shipping/, /\/checkout/, /\/place-order/, /\/profile/, /\/order\/(.*)/, /\/admin/];
       const { pathname } = request.nextUrl;
+
+      if (pathname === "/signin") return true;
+
       if (protectedPaths.some((p) => p.test(pathname))) return !!auth;
       return true;
     },
