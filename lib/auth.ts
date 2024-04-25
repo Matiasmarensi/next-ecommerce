@@ -18,7 +18,6 @@ export const config = {
         if (credentials == null) return null;
 
         const user = await UserModel.findOne({ email: credentials.email });
-        console.log(user);
 
         if (user) {
           const isMatch = await bcrypt.compare(credentials.password as string, user.password);
@@ -30,6 +29,7 @@ export const config = {
       },
     }),
   ],
+
   pages: {
     signIn: "/signin",
     newUser: "/register",
