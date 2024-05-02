@@ -73,7 +73,7 @@ const CartDetail = () => {
                     </div>
                   </li>
                   <li>
-                    <button className="btn btn-primary w-full" onClick={() => router.push("/checkout")}>
+                    <button className="btn btn-primary w-full" onClick={() => router.push("/shipping")}>
                       Proceed to Checkout
                     </button>
                   </li>
